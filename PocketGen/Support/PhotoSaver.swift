@@ -11,7 +11,7 @@ enum PhotoSaver {
         var errorDescription: String? {
             switch self {
             case .denied:
-                return "LocalGen needs permission to add photos. Enable it in Settings › LocalGen › Photos."
+                return "PocketGen needs permission to add photos. Enable it in Settings › PocketGen › Photos."
             case .failed(let message):
                 return message
             }

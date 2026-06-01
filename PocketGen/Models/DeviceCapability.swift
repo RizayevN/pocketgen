@@ -2,7 +2,7 @@ import UIKit
 
 /// Coarse hardware tier used to set expectations before the user generates.
 ///
-/// LocalGen's pitch is unlimited *on-device* generation, which is only pleasant on an
+/// PocketGen's pitch is unlimited *on-device* generation, which is only pleasant on an
 /// A14-class chip or newer. We can't read the exact SoC from public API, so we map the
 /// device model identifier (e.g. "iPhone13,2") to a tier. Unknown identifiers — including
 /// the Simulator and future devices — are treated as `.recommended`, since erring toward
@@ -22,7 +22,7 @@ enum DeviceTier {
         case .limited:
             return "This device can generate images, but slowly. An A14-class chip or newer is recommended."
         case .unsupported:
-            return "This device is below LocalGen's recommended hardware. Generation may be very slow or unstable."
+            return "This device is below PocketGen's recommended hardware. Generation may be very slow or unstable."
         }
     }
 }

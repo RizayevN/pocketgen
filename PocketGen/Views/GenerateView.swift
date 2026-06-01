@@ -24,7 +24,7 @@ struct GenerateView: View {
                     }
                 }
             }
-            .navigationTitle("LocalGen")
+            .navigationTitle("PocketGen")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarColorScheme(.dark, for: .navigationBar)
         }

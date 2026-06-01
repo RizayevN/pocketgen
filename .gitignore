@@ -10,7 +10,7 @@ xcuserdata/
 *.xccheckout
 
 # XcodeGen output (generated from project.yml)
-LocalGen.xcodeproj/
+PocketGen.xcodeproj/
 
 # Swift Package Manager
 .build/

@@ -1,6 +1,6 @@
-name: LocalGen
+name: PocketGen
 options:
-  bundleIdPrefix: com.localgen
+  bundleIdPrefix: com.pocketgen
   deploymentTarget:
     iOS: "17.0"
   createIntermediateGroups: true
@@ -15,17 +15,17 @@ settings:
     ENABLE_USER_SCRIPT_SANDBOXING: "YES"
 
 targets:
-  LocalGen:
+  PocketGen:
     type: application
     platform: iOS
     deploymentTarget: "17.0"
     sources:
-      - path: LocalGen
+      - path: PocketGen
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.localgen.app
-        PRODUCT_NAME: LocalGen
-        INFOPLIST_FILE: LocalGen/Resources/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.pocketgen.app
+        PRODUCT_NAME: PocketGen
+        INFOPLIST_FILE: PocketGen/Resources/Info.plist
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         TARGETED_DEVICE_FAMILY: "1,2"

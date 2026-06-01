@@ -1,8 +1,8 @@
-# LocalGen
+# PocketGen
 
 **Unlimited, private, on-device image generation for iOS.** Your prompts and images never leave your iPhone.
 
-LocalGen is a SwiftUI app for iOS 17+. The image-generation pipeline is abstracted behind a single protocol so a real on-device diffusion model (e.g. Apple's [`ml-stable-diffusion`](https://github.com/apple/ml-stable-diffusion) Core ML package) can drop in without any UI changes. Today it ships with a deterministic mock engine so the full app — prompt → progress → result → save/share — runs and is testable without a model download.
+PocketGen is a SwiftUI app for iOS 17+. The image-generation pipeline is abstracted behind a single protocol so a real on-device diffusion model (e.g. Apple's [`ml-stable-diffusion`](https://github.com/apple/ml-stable-diffusion) Core ML package) can drop in without any UI changes. Today it ships with a deterministic mock engine so the full app — prompt → progress → result → save/share — runs and is testable without a model download.
 
 ## Features
 
@@ -25,18 +25,18 @@ The Xcode project is generated from `project.yml` — it is not checked in. Gene
 
 ```sh
 xcodegen generate
-open LocalGen.xcodeproj
+open PocketGen.xcodeproj
 ```
 
 Build from the command line (Simulator, no code signing):
 
 ```sh
-xcodebuild -project LocalGen.xcodeproj -scheme LocalGen \
+xcodebuild -project PocketGen.xcodeproj -scheme PocketGen \
   -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.2' \
   -configuration Debug build CODE_SIGNING_ALLOWED=NO
 ```
 
-> `project.yml` is the source of truth for the project. After adding, removing, or moving files under `LocalGen/`, run `xcodegen generate` again — sources are picked up by directory globbing.
+> `project.yml` is the source of truth for the project. After adding, removing, or moving files under `PocketGen/`, run `xcodegen generate` again — sources are picked up by directory globbing.
 
 ## Architecture
 
