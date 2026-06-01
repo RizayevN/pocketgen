@@ -16,6 +16,11 @@ struct RootView: View {
                 .tabItem {
                     Label("Gallery", systemImage: "photo.on.rectangle.angled")
                 }
+
+            SettingsView(gallery: gallery)
+                .tabItem {
+                    Label("Settings", systemImage: "gearshape")
+                }
         }
     }
 }
