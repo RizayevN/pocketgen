@@ -5,13 +5,6 @@ struct ResultView: View {
     let result: GeneratedImage
     let onNewImage: () -> Void
 
-    @State private var isSharing = false
-    @State private var saveState: SaveState = .idle
-
-    private enum SaveState: Equatable {
-        case idle, saving, saved, failed(String)
-    }
-
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
@@ -34,31 +27,7 @@ struct ResultView: View {
                     .foregroundStyle(.tertiary)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                HStack(spacing: 12) {
-                    Button(action: save) {
-                        Label(saveLabel, systemImage: saveIcon)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 10)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .disabled(saveState == .saving || saveState == .saved)
-
-                    Button {
-                        isSharing = true
-                    } label: {
-                        Label("Share", systemImage: "square.and.arrow.up")
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 10)
-                    }
-                    .buttonStyle(.bordered)
-                }
-
-                if case .failed(let message) = saveState {
-                    Text(message)
-                        .font(.footnote)
-                        .foregroundStyle(.red)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
+                ImageActions(image: result.image)
 
                 Button(action: onNewImage) {
                     Label("New image", systemImage: "arrow.counterclockwise")
@@ -70,31 +39,12 @@ struct ResultView: View {
             }
             .padding(20)
         }
-        .sheet(isPresented: $isSharing) {
-            ShareSheet(items: [result.image])
-        }
-    }
-
-    private var saveLabel: String {
-        switch saveState {
-        case .idle, .failed: return "Save"
-        case .saving: return "Saving…"
-        case .saved: return "Saved"
-        }
-    }
-
-    private var saveIcon: String {
-        saveState == .saved ? "checkmark" : "square.and.arrow.down"
-    }
-
-    private func save() {
-        saveState = .saving
-        Task {
-            do {
-                try await PhotoSaver.save(result.image)
-                saveState = .saved
-            } catch {
-                saveState = .failed(error.localizedDescription)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: onNewImage) {
+                    Image(systemName: "xmark")
+                }
+                .accessibilityLabel("Close")
             }
         }
     }

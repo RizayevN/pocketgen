@@ -1,8 +1,12 @@
 import SwiftUI
 
-/// The single screen of the MVP: compose a prompt, generate, then save or share.
+/// The Create screen: compose a prompt, generate, then save or share.
 struct GenerateView: View {
-    @StateObject private var model = GenerationViewModel()
+    @StateObject private var model: GenerationViewModel
+
+    init(gallery: GalleryStore) {
+        _model = StateObject(wrappedValue: GenerationViewModel(gallery: gallery))
+    }
 
     var body: some View {
         NavigationStack {
@@ -152,6 +156,6 @@ private struct PromptField: View {
 }
 
 #Preview {
-    GenerateView()
+    GenerateView(gallery: GalleryStore())
         .preferredColorScheme(.dark)
 }
