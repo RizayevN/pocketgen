@@ -15,6 +15,15 @@ enum DeviceTier {
     /// Below the supported floor (iPhone 11 / iPad 9th gen and older).
     case unsupported
 
+    /// Short label for surfacing the tier in Settings.
+    var name: String {
+        switch self {
+        case .recommended: return "Recommended"
+        case .limited: return "Limited"
+        case .unsupported: return "Below recommended"
+        }
+    }
+
     var banner: String? {
         switch self {
         case .recommended:

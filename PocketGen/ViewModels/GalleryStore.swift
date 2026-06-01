@@ -14,4 +14,8 @@ final class GalleryStore: ObservableObject {
     func remove(_ image: GeneratedImage) {
         images.removeAll { $0.id == image.id }
     }
+
+    func clear() {
+        images.removeAll()
+    }
 }
