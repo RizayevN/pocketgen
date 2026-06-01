@@ -11,6 +11,7 @@ xcuserdata/
 
 # XcodeGen output (generated from project.yml)
 PocketGen.xcodeproj/
+LocalGen.xcodeproj/
 
 # Swift Package Manager
 .build/
