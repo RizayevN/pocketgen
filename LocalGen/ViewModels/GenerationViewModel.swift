@@ -17,10 +17,12 @@ final class GenerationViewModel: ObservableObject {
     let deviceTier = DeviceCapability.tier
 
     private let engine: GenerationEngine
+    private let gallery: GalleryStore?
     private var task: Task<Void, Never>?
 
-    init(engine: GenerationEngine = MockGenerationEngine()) {
+    init(engine: GenerationEngine = MockGenerationEngine(), gallery: GalleryStore? = nil) {
         self.engine = engine
+        self.gallery = gallery
     }
 
     var isGenerating: Bool {
@@ -45,12 +47,14 @@ final class GenerationViewModel: ObservableObject {
                 let output = try await engine.generate(request) { [weak self] fraction in
                     self?.phase = .generating(progress: fraction)
                 }
-                self.result = GeneratedImage(
+                let generated = GeneratedImage(
                     image: output.image,
                     request: request,
                     seed: output.seed,
                     createdAt: Date()
                 )
+                self.result = generated
+                self.gallery?.add(generated)
                 self.phase = .finished
             } catch is CancellationError {
                 self.phase = .idle

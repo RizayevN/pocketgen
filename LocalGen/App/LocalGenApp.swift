@@ -4,7 +4,7 @@ import SwiftUI
 struct LocalGenApp: App {
     var body: some Scene {
         WindowGroup {
-            GenerateView()
+            RootView()
                 .preferredColorScheme(.dark)
         }
     }
