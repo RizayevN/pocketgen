@@ -34,6 +34,27 @@ enum DeviceTier {
             return "This device is below PocketGen's recommended hardware. Generation may be very slow or unstable."
         }
     }
+
+    /// Rough seconds per diffusion step at 512px, used for the up-front time estimate the
+    /// user sees before committing to a generation (PRD: honest device expectations).
+    /// Static table for now; once the real pipeline lands these get calibrated from
+    /// measured on-device history.
+    var estimatedSecondsPerStep: Double {
+        switch self {
+        case .recommended: return 0.5
+        case .limited: return 1.2
+        case .unsupported: return 2.5
+        }
+    }
+
+    /// Human-readable estimate for a full request on this device, e.g. "about 10 seconds".
+    func estimatedDuration(for request: GenerationRequest) -> String {
+        let seconds = Double(request.steps) * estimatedSecondsPerStep * request.size.durationFactor
+        if seconds < 90 {
+            return "about \(Int(seconds.rounded())) seconds"
+        }
+        return "about \(Int((seconds / 60).rounded())) minutes"
+    }
 }
 
 enum DeviceCapability {

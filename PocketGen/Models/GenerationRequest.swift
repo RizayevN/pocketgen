@@ -18,6 +18,12 @@ enum ImageSize: Int, CaseIterable, Identifiable, Codable {
     }
 
     var pixels: Int { rawValue }
+
+    /// How much longer this size takes relative to 512px (diffusion cost scales with area).
+    var durationFactor: Double {
+        let edge = Double(rawValue) / 512
+        return edge * edge
+    }
 }
 
 /// A fully specified image-generation job. This is the unit the engine consumes,

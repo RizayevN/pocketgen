@@ -18,11 +18,22 @@ final class GenerationViewModel: ObservableObject {
 
     private let engine: GenerationEngine
     private let gallery: GalleryStore?
+    private let entitlements: EntitlementStore?
     private var task: Task<Void, Never>?
 
-    init(engine: GenerationEngine = MockGenerationEngine(), gallery: GalleryStore? = nil) {
+    init(
+        engine: GenerationEngine = MockGenerationEngine(),
+        gallery: GalleryStore? = nil,
+        entitlements: EntitlementStore? = nil
+    ) {
         self.engine = engine
         self.gallery = gallery
+        self.entitlements = entitlements
+    }
+
+    /// Up-front honesty: what this request will roughly cost in time on this device.
+    var estimatedDuration: String {
+        deviceTier.estimatedDuration(for: request)
     }
 
     var isGenerating: Bool {
@@ -38,6 +49,8 @@ final class GenerationViewModel: ObservableObject {
 
     func generate() {
         guard canGenerate else { return }
+        // The view routes to the paywall before calling this; the guard is a backstop.
+        guard entitlements?.canGenerate ?? true else { return }
         let request = self.request
         result = nil
         phase = .generating(progress: 0)
@@ -55,6 +68,7 @@ final class GenerationViewModel: ObservableObject {
                 )
                 self.result = generated
                 self.gallery?.add(generated)
+                self.entitlements?.recordGeneration()
                 self.phase = .finished
             } catch is CancellationError {
                 self.phase = .idle
