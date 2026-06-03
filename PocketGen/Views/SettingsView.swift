@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// The Settings tab: hardware status, session storage, the privacy pitch, and app info.
+/// The Settings tab: hardware status, gallery storage, the privacy pitch, and app info.
 /// Read-only for the MVP apart from clearing the in-memory gallery; the layout leaves
 /// room for real preferences (default size/steps, model management) to drop in later.
 struct SettingsView: View {
@@ -26,7 +26,7 @@ struct SettingsView: View {
                 }
 
                 Section("Storage") {
-                    LabeledContent("Images this session", value: "\(gallery.images.count)")
+                    LabeledContent("Saved images", value: "\(gallery.images.count)")
                     Button("Clear Gallery", role: .destructive) {
                         showingClearConfirmation = true
                     }
@@ -59,7 +59,7 @@ struct SettingsView: View {
                 Button("Clear Gallery", role: .destructive) { gallery.clear() }
                 Button("Cancel", role: .cancel) {}
             } message: {
-                Text("This removes every image from this session. It can't be undone.")
+                Text("This removes every generated image from this device. It can't be undone.")
             }
         }
     }

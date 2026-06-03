@@ -2,7 +2,7 @@ import Foundation
 
 /// Output dimensions offered to the user. Values are square edge lengths in pixels,
 /// chosen to match common on-device Stable Diffusion configurations.
-enum ImageSize: Int, CaseIterable, Identifiable {
+enum ImageSize: Int, CaseIterable, Identifiable, Codable {
     case small = 384
     case standard = 512
     case large = 768
@@ -22,7 +22,7 @@ enum ImageSize: Int, CaseIterable, Identifiable {
 
 /// A fully specified image-generation job. This is the unit the engine consumes,
 /// so the same value can later be persisted, replayed, or fed to a real Core ML pipeline.
-struct GenerationRequest: Equatable {
+struct GenerationRequest: Equatable, Codable {
     var prompt: String
     var negativePrompt: String
     var size: ImageSize
