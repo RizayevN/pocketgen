@@ -22,7 +22,9 @@ struct ResultView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
 
-                Text("Seed \(result.seed) · \(result.request.size.label)px · \(result.request.steps) steps")
+                // String(_:) keeps the full UInt32 range intact (Text's localized integer
+                // interpolation sign-extends seeds above Int32.max) and skips digit grouping.
+                Text("Seed \(String(result.seed)) · \(result.request.size.label)px · \(result.request.steps) steps")
                     .font(.caption.monospacedDigit())
                     .foregroundStyle(.tertiary)
                     .frame(maxWidth: .infinity, alignment: .leading)

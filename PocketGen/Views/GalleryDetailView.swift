@@ -21,7 +21,9 @@ struct GalleryDetailView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
 
-                Text("Seed \(item.seed) · \(item.request.size.label)px · \(item.request.steps) steps")
+                // String(_:) keeps the full UInt32 range intact (Text's localized integer
+                // interpolation sign-extends seeds above Int32.max) and skips digit grouping.
+                Text("Seed \(String(item.seed)) · \(item.request.size.label)px · \(item.request.steps) steps")
                     .font(.caption.monospacedDigit())
                     .foregroundStyle(.tertiary)
                     .frame(maxWidth: .infinity, alignment: .leading)
