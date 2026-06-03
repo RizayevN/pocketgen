@@ -12,6 +12,11 @@ xcuserdata/
 # XcodeGen output (generated from project.yml)
 PocketGen.xcodeproj/
 
+# Stub recreated by Xcode while a stale pre-rename window/recents entry
+# points at the old project path. Close that window and clear it from
+# File > Recent Projects, then this entry can go.
+LocalGen.xcodeproj/
+
 # Swift Package Manager
 .build/
 .swiftpm/
